@@ -1,0 +1,12 @@
+# Python virtualenv
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Patched source (generated at runtime)
+.c-realV2-patched.py
+
+# Config with real credentials — copy default.json.example to default.json
+# and fill in your token + user ID
+data/default.json

@@ -1,0 +1,43 @@
+{
+  "token": "YOUR_BOT_TOKEN_HERE",
+  "permissions": [
+    "YOUR_DISCORD_USER_ID_HERE"
+  ],
+  "bot_permission": "2146958847",
+  "command_prefix": ".",
+  "bot_status": "online",
+  "verbose": 15,
+  "bomb_messages": {
+    "random": 10,
+    "fixed": [
+      "test-channel",
+      "nuked",
+      "pwned",
+      "rekt",
+      "raided",
+      "destroyed",
+      "chaos",
+      "darklock-test",
+      "anti-raid-test",
+      "security-check"
+    ]
+  },
+  "webhook_spam": {
+    "usernames": [
+      "NukeBot",
+      "TestBot",
+      "RaidBot"
+    ],
+    "pfp_urls": [
+      null
+    ],
+    "contents": [
+      "Nuke test in progress",
+      "Anti-raid system test",
+      "DarkLock security test"
+    ]
+  },
+  "after": [],
+  "proxies": [],
+  "ban_whitelist": []
+}

@@ -1,0 +1,8 @@
+# C-REAL nuke bot dependencies - Python 3.12 compatible
+# discord.py 2.x is required for Python 3.12 (1.x uses removed asyncio internals)
+discord.py>=2.3.0
+packaging
+requests
+colorama
+inputimeout
+simplejson
