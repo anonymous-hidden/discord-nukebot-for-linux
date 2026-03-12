@@ -28,13 +28,6 @@ Python version 3.8.0 or higher is required if you are going to run the file from
 * The bot will still have to obey the [server limitings](https://discordia.me/en/server-limits) because of that in discord, there are rate limitings. You will see a lot of rate limiting in the console while using some commands. (because the bot is too fast on creating or deleting.)
 * Also, since we are using HTTP requests, unlike other nuke bot out there, C-REAL spam creating channel, role, and category(CRC) can create beyond the 250 limit for CRC that the old nuking bots have.
 
-## Messages
-* cyxl: wow.
-
-* Message to those coding masters out there, if you see something we can improve in our code, feel free to make a pull request. This will really help us a lot. ╰(✿´⌣\`✿)╯♡
-
-* TKperson: I got the idea of creating the C-REAL bot from [Cerealwithnomilk](https://www.youtube.com/channel/UCxX7O68badw2sBbcvQK0wBQ); the bot is named after this guy.
-
 ## Why did my computer say it's a dangerous file/containing virus?
 * I'm going to make myself clear here - it's not a virus.
 * There is another way for people that don't trust the released versions, and dont't want to download python to run the bot. Use https://repl.it/, make an account, choose "new repl" in the top left corner, choose python, click "create repl", copy and paste the [source code](https://raw.githubusercontent.com/TKperson/Nuking-Discord-Server-Bot-Nuke-Bot/master/c-realV2.py) into repl, and click on the run button at the top.  
