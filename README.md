@@ -1,60 +1,178 @@
-# Nuking Discord Server Bot/Nuke Bot
-## Made by tkperson and cyxl eddited for linux build by anonymous-hidden
-C-REAL is currently the **FASTEST** and **FREE** open source self-hosted nuke bot out here. All commands will be focused on nuking-related.
+# C-REAL Nuke Bot — Linux Build
 
-Issues are closed because we are not active in there. Join our discord if you need help, see plans for the future updates, suggestions, or beta testing a newer version of the bot: [https://discord.gg/FwGWvwv4mW](https://discord.gg/FwGWvwv4mW)
+> **Original bot** by [tkperson](https://github.com/TKperson) and cyxl.  
+> **Linux build, Python 3.12 compatibility patches & automation scripts** edited by [cayden (anonymous-hidden)](https://github.com/anonymous-hidden).
 
-We have combined threading, queue, requests, and discord.py API to make the commands run as fast as possible. If you are seeing rate limiting logged in your console while using this script, then that is simply because <ins>it runs too fast</ins>.
+---
 
-Python version 3.8.0 or higher is required if you are going to run the file from source code.
+## What is this?
 
-[All 51 commands](manual.md)
+This is the **Linux-ready** version of C-REAL v2.4.1 — the fastest free open-source Discord nuke bot — updated to work with **Python 3.12** and **discord.py 2.x** out of the box.  
+It is intended for **security testing your own server** (e.g. verifying an anti-nuke system works).
+
+> **⚠️ Legal notice:** Only use this against servers you own or have explicit written permission to test. Misuse violates Discord's ToS and may be illegal in your jurisdiction. Neither the original authors nor the Linux build maintainer accept responsibility for misuse.
+
+---
+
+## What's changed in the Linux build
+
+| Change | Reason |
+|---|---|
+| `self_bot=is_selfbot` parameter removed at runtime | Dropped in discord.py 2.x |
+| `client.logout()` → `client.close()` at runtime | Renamed in discord.py 2.x |
+| `setup.sh` — automated venv creation | One-command setup on any Linux distro |
+| `run.sh` — auto-patches source and launches | No manual edits needed |
+| First-run credential prompt | Token/user ID saved to `data/default.json` once; never re-asked |
+| `data/default.json.example` — pre-filled config template | Ready to use immediately |
+
+---
+
+## Requirements
+
+- Linux (tested on Ubuntu 22.04+ / Debian 12 / Raspberry Pi OS)
+- Python 3.8 or higher (Python 3.12 fully supported)
+- A **bot token** from the [Discord Developer Portal](https://discord.com/developers/applications)
+- Your **Discord user ID** (the account that sends commands to the bot)
+
+### Bot intents (enable in Developer Portal → Bot page)
+
+- ✅ Server Members Intent
+- ✅ Message Content Intent
+
+---
+
+## Installation
+
+### 1. Clone this repo
+
+```bash
+git clone https://github.com/anonymous-hidden/discord-nukebot-for-linux.git
+cd discord-nukebot-for-linux
+```
+
+### 2. Get the original source
+
+Download the original C-REAL v2.4.1 source file:
+
+```bash
+mkdir -p ~/Documents/Nuking-Discord-Server-Bot-Nuke-Bot-2.4.1
+curl -L https://raw.githubusercontent.com/TKperson/Nuking-Discord-Server-Bot-Nuke-Bot/master/c-realV2.py \
+     -o ~/Documents/Nuking-Discord-Server-Bot-Nuke-Bot-2.4.1/c-realV2.py
+```
+
+### 3. Run setup (once)
+
+```bash
+chmod +x setup.sh run.sh
+./setup.sh
+```
+
+This creates a Python virtual environment and installs all dependencies automatically.
+
+---
+
+## Configuration
+
+### Option A — Auto (recommended)
+
+Just run `./run.sh` and on the first launch it will ask for your bot token and Discord user ID, then save them to `data/default.json`. You won't be asked again.
+
+### Option B — Manual
+
+```bash
+cp data/default.json.example data/default.json
+```
+
+Edit `data/default.json` and replace:
+- `"YOUR_BOT_TOKEN_HERE"` → your bot token
+- `"YOUR_DISCORD_USER_ID_HERE"` → your Discord user ID
+
+To reset credentials later, delete `data/default.json` and re-run `./run.sh`.
+
+---
+
+## Running
+
+```bash
+./run.sh
+```
+
+The script patches the source file at runtime (no permanent changes to the original file) and starts the bot. Invite the bot to your **test server** first, then send commands from the Discord account whose user ID you configured.
+
+---
+
+## Usage
+
+### Core test commands
+
+| Command | Description |
+|---|---|
+| `.channelbomb <count> <wordlist>` | Mass-create text channels |
+| `.roleBomb <count> <wordlist>` | Mass-create roles |
+| `.kaboom <count> <wordlist>` | Mass-create channels, roles, and categories |
+| `.deleteAllChannels` | Delete every channel |
+| `.deleteAllRoles` | Delete every role |
+| `.banAll` | Ban every member |
+| `.nuke` | Full nuke: delete channels/roles/emojis/webhooks + ban all |
+| `.config` | Show and edit bot configuration |
+| `.help` | List all 51 commands |
+
+**Wordlists for bomb commands:**
+
+| Wordlist | Description |
+|---|---|
+| `fixed` | Names from `bomb_messages.fixed` in your `data/default.json` |
+| `b64` | Random base64 strings |
+| `an` | Random alphanumeric strings |
+
+### Example: stress-test anti-nuke with 100 channel bomb
 
 ```
-[addRole] [addChannel] [autoNick] [addVoiceChannel] [autoStatus] 
-[addEmoji] [addCategory] [banAll] [bans] [ban] [channelBomb] 
-[categoryBomb] [config] [checkRolePermissions] [connect] [categories] 
-[changeStatus] [channels] [deleteRole] [deleteChannel] 
-[deleteVoiceChannel] [deleteCategory] [deleteCC] [deleteEmoji] 
-[deleteAllRoles] [deleteAllChannels] [disableCommunityMode] 
-[deleteAllEmojis] [deleteAllWebhooks] [emojis] [grantAllPerm] 
-[help] [joinNuke] [kaboom] [leave] [leaveAll] [link] [moveRole] 
-[members] [nuke] [off] [purge] [roles] [roleBomb] [roleTo] [servers] 
-[serverIcon] [serverName] [unban] [voiceChannels] [webhook] 
+.channelbomb 100 fixed
 ```
 
-# IMPORTANT: 
-* We will not take any responsibility over whatever you are going to do with this bot.
-* The bot will still have to obey the [server limitings](https://discordia.me/en/server-limits) because of that in discord, there are rate limitings. You will see a lot of rate limiting in the console while using some commands. (because the bot is too fast on creating or deleting.)
-* Also, since we are using HTTP requests, unlike other nuke bot out there, C-REAL spam creating channel, role, and category(CRC) can create beyond the 250 limit for CRC that the old nuking bots have.
+---
 
-## Why did my computer say it's a dangerous file/containing virus?
-* I'm going to make myself clear here - it's not a virus.
-* There is another way for people that don't trust the released versions, and dont't want to download python to run the bot. Use https://repl.it/, make an account, choose "new repl" in the top left corner, choose python, click "create repl", copy and paste the [source code](https://raw.githubusercontent.com/TKperson/Nuking-Discord-Server-Bot-Nuke-Bot/master/c-realV2.py) into repl, and click on the run button at the top.  
+## All 51 commands
 
-## Main Usage (Please read `.config` command below before contacting me)
-`.nuke <true or false>` - It's a combination of a few commands: `.deleteAllChannels`, `.deleteAllEmojis`, `.deleteAllRoles`, `.banAll`, and `.deleteAllWebhooks`. True or false is an optional argument that is set to true by default and used for disabling after commands. (This command doesn't need to be configed with `.config`, Note: you can also use all the commands listed above seperately)
-* `.kaboom <#of bombs> <wordlist>` - Mass create text channels, roles, and categories(CRC). Number of bombs is just how many CRCs you want to spam create. There are 3 word lists, 2 built in, and 1 from user inputs: `fixed` - random text chosen from user inputs, `b64` - random base64 characters, `an` -  random alphanumeral characters. (Use `.config bomb_messages <args...>` to see how to set up the bomb commands)
-* `.check <userID|tag,|ping>` - Checks for the permissions that the bot has in a server.
-* `.autoNick` - Nicks the bot itselfs every few moments to bounce around the member list, making it harder for admins to kick the bot.
-* `.autoStatus` - changes from online to offline and offline to online every few moments to bounce around the member list.
-* `.config <feature> <args...>` - if you just type out `.config` it will show you all the features that you can config and it will guide you with text in the `.config` command. For example, if you want to add webhook spammer names to config webhook spam, you first want to type `.config webhook_spam`. The bot will send out a description of the webhook_spam feature and the config commands you can use to config the webhook_spam feature. From there you should be able to find something like `webhook <type> add <text>` for adding something into the `<type>` in this case you want to choose the username for the spammers, so you can type `.config webhook_spam usernames add TKperson` for adding usernames to  webhook_spam.
+```
+[addRole] [addChannel] [autoNick] [addVoiceChannel] [autoStatus]
+[addEmoji] [addCategory] [banAll] [bans] [ban] [channelBomb]
+[categoryBomb] [config] [checkRolePermissions] [connect] [categories]
+[changeStatus] [channels] [deleteRole] [deleteChannel]
+[deleteVoiceChannel] [deleteCategory] [deleteCC] [deleteEmoji]
+[deleteAllRoles] [deleteAllChannels] [disableCommunityMode]
+[deleteAllEmojis] [deleteAllWebhooks] [emojis] [grantAllPerm]
+[help] [joinNuke] [kaboom] [leave] [leaveAll] [link] [moveRole]
+[members] [nuke] [off] [purge] [roles] [roleBomb] [roleTo] [servers]
+[serverIcon] [serverName] [unban] [voiceChannels] [webhook]
+```
 
-## Guides
-### 2.4 setup
-* Run the .exe or the .py
-* You will see the "Enter token" message. You can only enter a bot token because selfbot is no longer supported.
-* Next you will see "Enter user ID or tag", you should enter the user ID or tag that you wanted to command the bot with. All command permissions will be granted to the user with the ID or tag you entered here.
-* If you want to know what commmands are there, then run `.help`
-* If you want to config any settings like the after commands or the webhook spam commands, you have to use `.config`. For more information on how to config will be in the `.config` command.
-* If you are having problems, feel free to make a issue in this github page.  
+Full command reference: [manual.md](manual.md)
 
-### 2.4 tutorials
-* [Setting up](https://youtu.be/aBmF0B9rPKA)
-* [kaboom and nuke](https://youtu.be/PkPsdUHFhXI)
-* [How to use the config command](https://youtu.be/Ci2Ly5yhT-U)
+---
 
-## Problems/issues
-* If you are experiencing crashing, please report it to "issues" on the [github page](https://github.com/TKperson/Nuking-Discord-Server-Bot-Nuke-Bot).
-* If the bot doesn't respond to any of the commands, check if the console is in highlighting/mark mode. If it's highlighting/mark mode, click the console then press any key on your keyboard, and it'll resolve.
-* If you see a bunch of white worded errors displaying in the console, and then crashed that means it's 90% a bug. So please make a new issue about it.
+## Troubleshooting
+
+| Problem | Fix |
+|---|---|
+| Bot doesn't respond to commands | Make sure Message Content Intent is enabled in the Developer Portal |
+| `venv not found` error | Run `./setup.sh` first |
+| `Source file not found` error | Re-download `c-realV2.py` (see Installation step 2) |
+| Rate limiting messages in console | Normal — the bot runs faster than Discord's rate limits and handles them automatically |
+| Terminal appears frozen | Click the terminal window and press any key (selection/"mark" mode) |
+| Want to reset token/user ID | Delete `data/default.json` and re-run `./run.sh` |
+
+---
+
+## Notes
+
+- Rate limiting in the console is **expected and normal** — C-REAL intentionally creates/deletes faster than Discord's limits, then backs off automatically.
+- The bot will respect Discord's [server limits](https://discordia.me/en/server-limits), but since it uses raw HTTP requests it can exceed the old 250-channel/role limit that older nuke bots had.
+
+---
+
+## Credits
+
+- **Original C-REAL bot:** [tkperson](https://github.com/TKperson) & cyxl — [original repo](https://github.com/TKperson/Nuking-Discord-Server-Bot-Nuke-Bot)
+- **Linux build & Python 3.12 patches:** [cayden (anonymous-hidden)](https://github.com/anonymous-hidden)
